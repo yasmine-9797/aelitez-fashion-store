@@ -24,7 +24,7 @@ export function Overlay({ open, onClose, label, side = "right", children, classN
       if (e.key === "Tab" && ref.current) {
         const f = ref.current.querySelectorAll<HTMLElement>('a[href],button:not([disabled]),input,select,[tabindex]:not([tabindex="-1"])');
         if (!f.length) return;
-        const first = f[0], last = f[f.length - 1];
+        const first = f[0]!, last = f[f.length - 1]!;
         if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
         else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
       }

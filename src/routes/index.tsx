@@ -248,7 +248,7 @@ function Storefront() {
               <Btn href={INSTAGRAM_URL} variant="primary" external><Instagram className="size-4" /> Follow on Instagram</Btn>
             </div>
             <div className="grid grid-cols-3 gap-2 md:grid-cols-6">
-              {[heroImg, PRODUCTS[0].image, womenImg, PRODUCTS[2].image, menImg, PRODUCTS[5].image].map((src, i) => (
+              {[heroImg, PRODUCTS[0]!.image, womenImg, PRODUCTS[2]!.image, menImg, PRODUCTS[5]!.image].map((src, i) => (
                 <a key={i} href={INSTAGRAM_URL} {...ext} aria-label={`View AELITEZ on Instagram (opens in new tab), image ${i + 1}`} className="group relative aspect-square overflow-hidden bg-card">
                   <SmartImage src={src} alt="" loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
                   <span className="absolute inset-0 grid place-items-center bg-ink/0 opacity-0 transition group-hover:bg-ink/40 group-hover:opacity-100"><Instagram className="size-7 text-ivory" /></span>
@@ -417,7 +417,7 @@ function ProductCard({ p, wished, onWish, onOpen, onAdd }: { p: Product; wished:
         <div className="absolute inset-x-2 bottom-2 flex flex-wrap justify-center gap-1 bg-background/95 p-2 opacity-100 transition md:translate-y-2 md:opacity-0 md:group-focus-within:translate-y-0 md:group-focus-within:opacity-100 md:group-hover:translate-y-0 md:group-hover:opacity-100">
           <span className="w-full text-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Quick add</span>
           {p.sizes.map((s) => (
-            <button key={s} onClick={() => onAdd(p, s, p.colors[0].name)} aria-label={`Quick add ${p.name}, size ${s}`} className="min-w-8 border px-1.5 py-1 text-xs font-semibold hover:bg-foreground hover:text-background">{s}</button>
+            <button key={s} onClick={() => onAdd(p, s, p.colors[0]!.name)} aria-label={`Quick add ${p.name}, size ${s}`} className="min-w-8 border px-1.5 py-1 text-xs font-semibold hover:bg-foreground hover:text-background">{s}</button>
           ))}
         </div>
       </div>
@@ -437,7 +437,7 @@ function ProductModal({ product, onClose, onAdd, wished, onWish }: { product: Pr
   const [size, setSize] = useState<string | null>(null);
   const [color, setColor] = useState("");
   const [qty, setQty] = useState(1);
-  useEffect(() => { if (product) { setSize(product.sizes.length === 1 ? product.sizes[0] : null); setColor(product.colors[0].name); setQty(1); } }, [product]);
+  useEffect(() => { if (product) { setSize(product.sizes.length === 1 ? product.sizes[0]! : null); setColor(product.colors[0]!.name); setQty(1); } }, [product]);
   if (!product) return null;
   return (
     <Overlay open onClose={onClose} label={product.name} side="center">
