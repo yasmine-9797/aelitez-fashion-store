@@ -1,57 +1,153 @@
-# AeliteZ Fashion Store
+# AELITEZ CLOTHINGS — online store
 
-Build a polished, production-quality responsive e-commerce website for the Indian clothing brand “AELITEZ CLOTHINGS”, based in Tiruppur, Tamil Nadu. Brand positioning supplied by the owner: “The Trendiest Fashion in India • Premium for Less”, “Best Quality & Price”, “1L+ Happy Customers”, “4.9★ Rating”, “4 Stores Strong”, “Next Franchise Loading…”. Store address: No. 49, ABT Road, Karuvampalayam, Tiruppur, Tamil Nadu, India. Do not invent phone numbers, exact prices, store branches, product inventory, certifications, or checkout/payment integrations. Treat the supplied customer and rating statements as brand-provided marketing claims.
+Full-stack e-commerce platform for **AELITEZ CLOTHINGS**, Tiruppur — *The Trendiest Fashion in India • Premium for Less*.
 
-DESIGN DIRECTION:
-Create a world-class contemporary Indian fashion storefront with a premium editorial campaign feel, inspired by high-end fashion e-commerce and modern streetwear. Strong visual hierarchy, oversized confident typography, generous spacing, polished image crops, clean grid, tasteful micro-interactions, smooth scrolling, subtle reveal animations, responsive mobile-first layouts. Use a sophisticated palette of warm ivory, deep near-black, and a restrained electric lime or vivid chartreuse accent for offers/CTAs. Avoid generic SaaS layouts, excessive gradients, glassmorphism, and template-looking cards. Use high-quality fashion photography via reliable remote image URLs/Unsplash source where possible; make sure images render and have graceful fallbacks. Ensure the overall result looks visually rich immediately, not an empty skeleton.
+The store sells **children's and women's fashion only**: baby & infant, toddler, girls', boys', teen girls' and women's clothing and accessories. There is no men's department — the database, API and admin all refuse men's categories (boys' clothing is part of Kids).
 
-BUILD THESE SECTIONS:
-1. Slim announcement bar: “TRENDING NOW • Premium looks, prices you’ll love” and “Visit our Tiruppur store”.
-2. Sticky responsive navigation with AELITEZ wordmark, links Shop, New Arrivals, Collections, Our Story, Stores; prominent search icon, account icon if appropriate, cart icon with count, mobile menu.
-3. Hero campaign section with large editorial fashion photo(s), eyebrow “THE NEW EVERYDAY”, bold headline “Style that speaks. Prices that make sense.”, concise brand copy, primary “Shop the Collection” CTA and secondary “Explore New Arrivals”. Include decorative season/campaign text and a visually striking composition. Do not use a fake countdown timer.
-4. Trust strip with the supplied claims: “1L+ Happy Customers”, “4.9★ Customer Rating”, “4 Stores Strong”, “Premium for Less”.
-5. Featured category tiles such as Women, Men, Ethnic & Everyday, Accessories. These are proposed navigation categories; don't claim confirmed inventory. Include tasteful image cards and hover states.
-6. “Trending now” / “Popular picks” product grid with 8 clearly labelled demo products across clothing categories. Use believable INR prices and product titles but mark catalogue as sample/demo content that can be edited; do not imply these are actual inventory. Product cards include image, category, product name, price in ₹, optional compare-at price, color dots, wishlist button, quick-add/select size, and badges such as New or Bestseller only where presented as sample merchandising. Product detail modal/drawer with image, size selector, quantity, description and add-to-cart.
-7. New-season campaign banner with fashion image and copy “Good style shouldn’t cost more” / “Discover your next favourite fit”.
-8. Brand story section explaining accessible trend-led fashion and quality at fair prices, without unsupported historical claims.
-9. Social/Instagram section linking to the supplied Instagram profile https://www.instagram.com/aelitezclothings/ with “Follow @aelitezclothings” and visual fashion grid.
-10. Store visit section with the exact address: “No. 49, ABT Road, Karuvampalayam, Tiruppur, Tamil Nadu, India”, map link/search to Google Maps using that address, directions CTA, and Instagram contact CTA. Don't invent opening hours or phone number.
-11. Newsletter signup UI with clear consent copy. If no backend is configured, make it a client-side demo with helpful feedback; don't falsely claim the subscription was saved remotely.
-12. Complete footer: shop links, brand, store address, Instagram link, policies placeholders clearly identified as pages to fill in.
+- **Storefront** — homepage, shop / kids / women listings with filters, product pages, cart, checkout, customer accounts, order tracking and returns.
+- **Admin panel** (`/admin`) — dashboard, orders, returns & refunds, products, photos, variants, inventory, categories, coupons, delivery options, review moderation, audit log.
+- **API** (`server/`) — Node.js + Express + PostgreSQL (Prisma). Prices, discounts, stock and totals are always calculated on the server.
 
-FUNCTIONALITY:
-- Search overlay/input filters displayed demo products.
-- Category filter buttons and sort (featured, price low-high, price high-low).
-- Product detail modal, size selection, quantity, add-to-cart.
-- Working cart drawer with line items, quantity adjustment, remove, subtotal in INR, empty state, and clear “Demo checkout — payment/order placement is not connected yet” message. Do not take payment or claim an order was placed.
-- Wishlist toggles with localStorage persistence.
-- Cart and wishlist persist via localStorage.
-- Mobile navigation and accessible dialogs/buttons.
-- Toasts or inline feedback for add to cart and other actions.
-- Instagram profile links open safely in a new tab.
-- SEO title/description, semantic landmarks, keyboard accessibility, visible focus states, reduced-motion support, alt text, and good mobile performance.
-- Use React, TypeScript, Tailwind CSS, shadcn/ui if useful, lucide icons. Do not use SCSS.
-- Keep code clean, reusable, and type-safe. Ensure all main buttons do something useful, no dead links for in-page sections, no broken layout on mobile or desktop.
+> Deploying? See **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)**.
 
-Important: deliver the complete attractive storefront UI with functioning frontend interactions now. Make it easy for the business to later replace demo products with real products and connect a real inventory, order management, and payment gateway.
+---
 
-This project was built with [Lovable](https://lovable.dev).
+## Repository layout
 
-## Build with Lovable
+```
+/                      Storefront + admin UI (TanStack Start, React, Tailwind) — stays at the root for Lovable
+  src/routes/            Pages (file-based routing): _store/* = storefront, admin/* = admin panel
+  src/components/        UI (shop/, layout/, admin/)
+  src/lib/               API client, data hooks, SEO, helpers
+shared/                Code used by both the storefront and the API: validation schemas, money,
+                       pricing, order status rules, API types
+server/                REST API (Express 5, Prisma 7, PostgreSQL)
+  prisma/                schema.prisma, migrations/, seed.ts
+  src/modules/           auth, catalog, cart, checkout, orders, payments, admin, system …
+  test/                  API integration tests (Vitest + Supertest against a real PostgreSQL)
+e2e/                   End-to-end browser tests (Playwright)
+docs/                  Deployment guide
+```
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/2a221efb-455f-43bf-b294-782a86bc77bd).
+The storefront stays at the repository root (rather than `apps/web`) because this project syncs with **Lovable**, which builds from the root. The API and tests are separate packages with their own `package.json`, so they never affect the Lovable build.
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+## Brand
 
-## Development
+Use only the logo palette — tokens live in `src/styles.css`:
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+| Token | Value | Use |
+| --- | --- | --- |
+| `brand` | `#E11D24` | Calls to action, offers, highlights (the red of the logo) |
+| `ink` | `#141414` | Text, dark sections (the black of the wordmark) |
+| `paper` | `#FFFFFF` | Backgrounds |
+| greys | neutral | Secondary text such as "CLOTHINGS" |
+
+No other accent colours and no gradients; the logo is always the plain disc (`Logo` in `src/components/shop/Logo.tsx`), never inside a ring. Display type is Anton; body type is Montserrat.
+
+---
+
+## Running it locally
+
+**You need:** Node.js 22+, npm, and PostgreSQL 14+ (any local install, Docker, or a hosted database).
+
+### 1. Database and API
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+cd server
+npm install
+
+# Option A — use any PostgreSQL you already have:
+cp .env.example .env      # then set DATABASE_URL and TEST_DATABASE_URL (two separate databases)
+
+# Option B — let the helper run a private PostgreSQL in server/.pgdata on port 54329
+# (uses the PostgreSQL binaries on your machine; set PG_BIN if they aren't found):
+npm run db:local          # creates the cluster + databases and writes server/.env
+
+npm run db:migrate        # apply migrations
+npm run db:seed           # reference data + a labelled DEMO catalogue (never in production)
+ADMIN_EMAIL=you@example.com ADMIN_PASSWORD='choose-a-strong-one1' ADMIN_NAME='Your Name' npm run create-admin
+npm run dev               # API on http://localhost:4000
 ```
+
+On Windows PowerShell set the admin variables first, e.g. `$env:ADMIN_EMAIL='you@example.com'`.
+
+### 2. Storefront
+
+```sh
+# from the repository root
+npm install
+cp .env.example .env      # VITE_API_URL=http://localhost:4000, VITE_SITE_URL=http://localhost:8080
+npm run dev               # http://localhost:8080 — admin at /admin
+```
+
+In development the API accepts the storefront on any `localhost` port (Vite moves to 8081, 8082… if 8080 is busy). In production it accepts only the origins listed in `CORS_ORIGINS`. Run only one copy of each server — a second API on the same port stops with a "port already in use" message.
+
+### Payments and email in development
+
+- **Payments are off by default.** Checkout clearly says payment isn't available until you either set the three `RAZORPAY_*` keys (use Razorpay *test* keys locally) or set `COD_ENABLED=true` in `server/.env`.
+- **Email:** without `SMTP_HOST`, development writes emails (verification, password reset, order confirmation) to `server/.outbox/` so you can open the links.
+
+---
+
+## Tests and checks
+
+| What | Command | Notes |
+| --- | --- | --- |
+| API integration tests | `cd server && npm test` | Real PostgreSQL (`TEST_DATABASE_URL`, wiped each run): auth, CSRF, catalogue filters, cart, coupons, **concurrent checkout / no overselling**, payment signatures, webhook replay, order state machine, returns/refunds, admin permissions |
+| API type check / build | `cd server && npm run typecheck && npm run build` | |
+| Storefront unit tests | `npm test` | |
+| Storefront type check / build | `npx tsc --noEmit && npm run build` | |
+| End-to-end (Playwright) | `cd e2e && npm install && npm test` | Starts its own API + storefront on ports 4100/8180 against a throwaway `aelitez_e2e` database. Uses your installed Chrome (`PW_CHANNEL` to change). Covers the shopper checkout journey, admin order fulfilment, men's-category refusal, publishing rules, mobile menu/filters and no horizontal scrolling at 320px |
+| Dependency audit | `cd server && npm run audit:deps` | |
+
+---
+
+## Configuration reference
+
+**Storefront** (`.env` at the root — public values only; everything here is bundled into the browser):
+
+| Variable | Purpose |
+| --- | --- |
+| `VITE_API_URL` | URL of the API, e.g. `https://api.aelitez.com` |
+| `VITE_SITE_URL` | Public storefront URL — canonical links, Open Graph, sitemap |
+
+**API** (`server/.env` — see `server/.env.example` for every option): `DATABASE_URL`, `CORS_ORIGINS`, `STOREFRONT_URL`, `PUBLIC_API_URL`, `COOKIE_SAMESITE`, `COOKIE_DOMAIN`, `TRUST_PROXY`, `RAZORPAY_KEY_ID` / `RAZORPAY_KEY_SECRET` / `RAZORPAY_WEBHOOK_SECRET`, `COD_ENABLED`, `PAYMENT_TIMEOUT_MINUTES`, `SMTP_*`, `MAIL_FROM`, `UPLOAD_DIR`, `MAX_UPLOAD_MB`, `RETURN_WINDOW_DAYS`, `MAX_CART_QUANTITY`. In production the API refuses to start with unsafe settings (http URLs, localhost CORS, partial Razorpay keys).
+
+Never commit `.env` files — only the `.env.example` templates are tracked.
+
+---
+
+## How the important parts work
+
+- **Prices & totals** — the browser never supplies a price. Cart lines, coupon discounts, delivery fees and order totals are recomputed by the API; the database also enforces `total = subtotal − discount + shipping`.
+- **Stock** — each variant has `onHand` and `reserved`. Placing an order reserves stock with a single conditional `UPDATE … WHERE onHand − reserved >= qty`, so simultaneous checkouts can never oversell (covered by a concurrency test). Online orders hold stock for `PAYMENT_TIMEOUT_MINUTES`, then release it automatically. Every change is recorded as an inventory movement.
+- **Payments** — Razorpay Checkout collects card/UPI details; this system never sees them. An order is marked paid only after a verified signature **and** a server-side check that Razorpay captured the right amount, or a signed webhook. Webhook deliveries are de-duplicated by event id. Cash-on-delivery is optional and is marked paid only when staff record the cash as collected.
+- **Order lifecycle** — `shared/order-status.ts` defines every allowed status change. Staff can move orders through processing → packed → shipped (courier details required) → delivered; confirmations, returns and refunds happen only through their own workflows, so an unpaid order can't be marked confirmed or delivered.
+- **Security** — Argon2id passwords; server-side sessions in HttpOnly cookies (only token hashes stored); CSRF tokens + origin checks; role-based admin permissions (STAFF vs ADMIN); rate limits on sign-in, password reset, checkout; strict input validation (unknown fields are dropped); image uploads re-encoded with sharp; security headers via Helmet; audit log of admin actions; no stack traces or secrets in responses or logs.
+- **Honest storefront** — "Bestsellers" appear only after real sales, testimonials only from verified-purchase reviews, discounts only from real prices, and empty categories are hidden. Customer figures in the brand strip are the business's own claims and are labelled as such.
+
+---
+
+## Before launch
+
+1. Remove the demo catalogue: create the real products in **Admin → Products** (or start from a database seeded with `SEED_DEMO_PRODUCTS=false`). Demo SKUs start with `DEMO-`.
+2. Review **Admin → Delivery** — the seeded fees and timelines are placeholders.
+3. Decide on payments: add live Razorpay keys and the webhook (see the deployment guide), and/or set `COD_ENABLED`.
+4. Configure SMTP so password-reset and order emails are delivered.
+5. Replace the placeholder policy pages (`src/routes/_store/policies.$slug.tsx`) with your final shipping, returns, privacy and terms wording.
+6. Replace stock photography with your own — credits for the current images are in `src/assets/CREDITS.md`.
+
+### Known limitations
+
+- Returns and refunds cover the whole order (no partial returns or partial refunds yet).
+- No PIN-code serviceability check or courier integration — tracking numbers are entered by staff.
+- Product images are stored on the API server's disk; use a persistent volume, or swap `server/src/lib/storage.ts` for object storage, when running several instances.
+- Rate-limit counters are in memory (per instance) — add a shared store for multi-instance deployments.
+- Staff/admin accounts are created with `npm run create-admin` (there is no staff-management screen).
+- Razorpay is tested against a simulated gateway in the automated tests; run a payment with Razorpay test keys before going live.
+
+---
+
+## Lovable
+
+This project is connected to [Lovable](https://lovable.dev/projects/2a221efb-455f-43bf-b294-782a86bc77bd). Changes pushed to `main` sync to Lovable — keep the branch building, and don't rewrite pushed history. Lovable builds only the storefront; the API (`server/`) is deployed separately.

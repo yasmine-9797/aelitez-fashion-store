@@ -16,6 +16,28 @@ dist-ssr
 .nitro
 *.local
 
+# Secrets — only the *.example templates are committed
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# API server (server/)
+server/dist
+server/.pgdata
+server/.pgpass.tmp
+server/uploads
+server/.outbox
+server/src/generated
+server/test/.uploads
+
+# End-to-end tests (e2e/)
+e2e/test-results
+e2e/playwright-report
+e2e/.auth
+
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars

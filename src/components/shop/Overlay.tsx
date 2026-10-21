@@ -44,7 +44,7 @@ export function Overlay({ open, onClose, label, side = "right", children, classN
     <div className="fixed inset-0 z-[60]">
       <div className="absolute inset-0 bg-ink/60 animate-in fade-in" onClick={onClose} aria-hidden />
       <div ref={ref} role="dialog" aria-modal="true" aria-label={label} className={cn("absolute bg-background shadow-2xl duration-300", pos, className)}>
-        <button onClick={onClose} aria-label="Close" className="absolute right-4 top-4 z-10 grid size-10 place-items-center rounded-full bg-background/90 hover:bg-accent">
+        <button onClick={onClose} aria-label="Close" className="absolute right-4 top-4 z-10 grid size-10 place-items-center rounded-full bg-background/90 transition-colors hover:bg-brand hover:text-paper">
           <X className="size-5" />
         </button>
         {children}

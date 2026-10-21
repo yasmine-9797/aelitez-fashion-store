@@ -6,7 +6,7 @@
 
 @theme inline {
   --font-display: "Anton", "Impact", sans-serif;
-  --font-sans: "Manrope", system-ui, sans-serif;
+  --font-sans: "Montserrat", system-ui, sans-serif;
   --radius-sm: calc(var(--radius) - 2px);
   --radius-md: var(--radius);
   --radius-lg: var(--radius);
@@ -30,45 +30,57 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-ink: var(--ink);
-  --color-ivory: var(--ivory);
+  --color-paper: var(--paper);
+  --color-brand: var(--brand);
+  --color-brand-deep: var(--brand-deep);
+  --color-brand-bright: var(--brand-bright);
 }
 
 :root {
   --radius: 0.25rem;
-  --ivory: oklch(0.97 0.012 85);
-  --ink: oklch(0.16 0.006 80);
-  --background: var(--ivory);
+
+  /* AELITEZ brand — sampled from the logo */
+  --brand: #e11d24; /* "A" mark + ELITE wordmark red (AA on white) */
+  --brand-deep: #b3121a; /* hover / pressed on red */
+  --brand-bright: #ff4b52; /* small red text on ink (AA) */
+  --ink: #141414; /* wordmark black */
+  --paper: #ffffff; /* logo disc white */
+  /* The palette is red, black, white and neutral greys only — no gradients. */
+
+  --background: var(--paper);
   --foreground: var(--ink);
-  --card: oklch(0.94 0.016 82);
+  --card: oklch(0.97 0 0);
   --card-foreground: var(--ink);
-  --popover: var(--ivory);
+  --popover: var(--paper);
   --popover-foreground: var(--ink);
-  --primary: var(--ink);
-  --primary-foreground: var(--ivory);
-  --secondary: oklch(0.92 0.018 82);
+  --primary: var(--brand);
+  --primary-foreground: var(--paper);
+  --secondary: oklch(0.955 0 0);
   --secondary-foreground: var(--ink);
-  --muted: oklch(0.93 0.015 82);
-  --muted-foreground: oklch(0.46 0.012 80);
-  --accent: oklch(0.91 0.21 122);
+  --muted: oklch(0.955 0 0);
+  --muted-foreground: oklch(0.46 0 0);
+  --accent: oklch(0.955 0 0);
   --accent-foreground: var(--ink);
   --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: var(--ivory);
-  --border: oklch(0.86 0.016 82);
-  --input: oklch(0.86 0.016 82);
-  --ring: oklch(0.16 0.006 80);
+  --destructive-foreground: var(--paper);
+  --border: oklch(0.91 0 0);
+  --input: oklch(0.91 0 0);
+  --ring: var(--brand);
 }
 
 @layer base {
   * { border-color: var(--color-border); }
   html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
   body { background-color: var(--color-background); color: var(--color-foreground); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
-  :focus-visible { outline: 2px solid var(--color-foreground); outline-offset: 3px; }
-  .bg-ink :focus-visible, .bg-ink:focus-visible { outline-color: var(--color-accent); }
+  ::selection { background-color: var(--color-brand); color: var(--color-paper); }
+  :focus-visible { outline: 2px solid var(--color-brand); outline-offset: 3px; }
+  .bg-ink :focus-visible, .bg-ink:focus-visible { outline-color: var(--color-brand-bright); }
+  .bg-brand :focus-visible, .bg-brand:focus-visible { outline-color: var(--color-paper); }
 }
 
 @utility display { font-family: var(--font-display); text-transform: uppercase; letter-spacing: -0.01em; line-height: 0.88; }
 @utility eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; }
-@utility text-outline { color: transparent; -webkit-text-stroke: 1px currentColor; }
+@utility text-outline { -webkit-text-fill-color: transparent; -webkit-text-stroke: 1.5px currentColor; }
 
 @keyframes marquee { to { transform: translateX(-50%); } }
 @utility animate-marquee { animation: marquee 28s linear infinite; }
