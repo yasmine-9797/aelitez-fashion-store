@@ -97,6 +97,7 @@ VITE_SITE_URL=https://www.aelitez.com
 ```
 
 - **Lovable:** add both in the project's environment settings, then publish. Lovable builds the root app only.
+- **Netlify:** the root `netlify.toml` sets the build command to `npm run build` and the publish directory to `dist`. In Netlify builds, the Vite configuration selects Nitro's `netlify` preset, which generates the server-rendering function in `.netlify/functions-internal` and its routing rules. This serves both the homepage and direct page URLs. Do not add a single-page-app redirect to `/index.html`: this storefront uses server rendering. The API remains a separate service; set `VITE_API_URL` to its public HTTPS address.
 - **Elsewhere:** `npm ci && npm run build`. Nitro outputs to `.output/` for the configured target (Cloudflare by default). Follow Nitro's deployment instructions for your host.
 
 `/robots.txt` and `/sitemap.xml` are generated from the live catalogue. Submit the sitemap in Google Search Console.
