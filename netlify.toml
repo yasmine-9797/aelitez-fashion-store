@@ -1,0 +1,6 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Nitro's Netlify preset generates the SSR function and its routing rules.
+# Routes must reach that function; this app does not use a static index.html.
