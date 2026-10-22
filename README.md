@@ -48,6 +48,14 @@ No other accent colours and no gradients; the logo is always the plain disc (`Lo
 
 ## Running it locally
 
+**Everyday use (after the one-time setup below):** from the project folder run
+
+```sh
+npm run dev:all
+```
+
+It starts the local database (if you use the built-in one), the API and the storefront in one terminal, reuses anything that is already running, and restarts anything that stops. Open http://localhost:8080 (admin at `/admin`). Ctrl+C stops it. If a page says the API isn't responding, this command isn't running.
+
 **You need:** Node.js 22+, npm, and PostgreSQL 14+ (any local install, Docker, or a hosted database).
 
 ### 1. Database and API

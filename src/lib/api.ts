@@ -78,7 +78,13 @@ async function request<T>(path: string, opts: RequestOptions = {}, retried = fal
     });
   } catch (err) {
     if ((err as Error).name === "AbortError") throw err;
-    throw new ApiError(0, "NETWORK", "We couldn't reach the store. Check your connection and try again.");
+    throw new ApiError(
+      0,
+      "NETWORK",
+      import.meta.env.DEV
+        ? `The API at ${API_URL} isn't responding. Start everything with \`npm run dev:all\` (from the project folder), then refresh.`
+        : "We couldn't reach the store. Check your connection and try again.",
+    );
   }
 
   if (res.status === 204) return undefined as T;
